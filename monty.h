@@ -7,6 +7,7 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <unistd.h>
+extern int value;
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
  * @n: integer
@@ -36,4 +37,8 @@ typedef struct instruction_s
         void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 int numlines(char *buffer);
+void callfunc(FILE *fr, stack_t *head);
+void push_m(stack_t **stack, unsigned int line_number);
+void pall_m(stack_t **stack, unsigned int line_number);
+void (*get_op_func(char *s))(stack_t **stack, unsigned int line_number);
 #endif

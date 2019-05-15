@@ -5,30 +5,31 @@
  * @i: Value to add
  * Return: New location of head
 **/
-int push_m(stack_t **stack, int i)
+void push_m(stack_t **stack, unsigned int line_number)
 {
+    int number = value;
 	stack_t *new;
 	stack_t *current;
-	const int number = n;
-
-	current = *head;
+    (void) line_number;
+	current = *stack;
 
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)
-		return (NULL);
-	new->n = number;
+    {
+        printf("Error: malloc failed");
+		exit (EXIT_FAILURE);
+    }
+    new->n = number;
 	new->prev = NULL;
 	new->next = NULL;
-	if (*head == NULL)
+	if (*stack == NULL)
 	{
-		*head = new;
+		*stack = new;
 	}
 	else
 	{
 		new->next = current;
 		current->prev = new;
-		*head = new;
+		*stack = new;
 	}
-
-return (new);
 }
