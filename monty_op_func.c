@@ -11,11 +11,12 @@ instruction_t ops[] = {
 {"pall", pall_m},
 {"pint", pint_m},
 {"pop", pop_m},
+{"swap", swap_m},
 {NULL, NULL}
 };
 int i = 0;
 
-while (i <= 2)
+while (ops[i].opcode)
 {
 	if (strcmp((ops[i]).opcode, s) == 0)
 		return (ops[i].f);

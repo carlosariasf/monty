@@ -1,13 +1,14 @@
 #include "monty.h"
 /**
- * pop_m - delete a node
+ * swap_m - change two nodes
  * @stack: doubly linked list
- * @line_number: line number of the file
+ * @line_number: number of each line
  *
 **/
-void pop_m(stack_t **stack, unsigned int line_number)
+void swap_m(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
+	stack_t *tmp = *stack;
 
 	if (*stack == NULL)
 	{

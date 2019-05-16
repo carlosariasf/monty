@@ -40,6 +40,7 @@ typedef struct instruction_s
 
 int numlines(char *buffer);
 void callfunc(FILE *fr, stack_t *head);
+void swap_m(stack_t **stack, unsigned int line_number);
 void push_m(stack_t **stack, unsigned int line_number);
 void pall_m(stack_t **stack, unsigned int line_number);
 void pint_m(stack_t **stack, unsigned int line_number);
