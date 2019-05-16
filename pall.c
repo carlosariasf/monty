@@ -11,7 +11,11 @@ void pall_m(stack_t **stack, unsigned int line_number)
 	(void) line_number;
 
 	if ((*stack) == NULL)
+	{
+		free(current);
+		free(stack);
 		exit(0);
+	}
 	while (current)
 	{
 		printf("%d\n", current->n);

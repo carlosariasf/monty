@@ -50,6 +50,11 @@ void callfunc(FILE *fp, stack_t *head)
 	int countargt = 1;
 
 	bufferc = (char *)malloc(bufsize * sizeof(char));
+	if (!bufferc)
+	{
+		printf("Error: malloc failed\n");
+		exit(EXIT_FAILURE);
+	}
 	while (getline(&bufferc, &bufsize, fp) != EOF)
 	{
 		token = strtok(bufferc, delimit);
@@ -64,28 +69,12 @@ void callfunc(FILE *fp, stack_t *head)
 		}
 		if (countargt > 0)
 			value = atoi(argumts[1]);
+		else
+		{
+			printf("USAGE: monty file\n");
+			exit(EXIT_FAILURE);
+		}
 		(*get_op_func(argumts[0]))(&head, countargt);
 	}
 	free(bufferc);
-}
-
-/**
- * numlines - counts the number of lines
- * @buffer: content  of the file.
- * Return: the number of lines.
- */
-int numlines(char *buffer)
-{
-	char *cbuffer = malloc(sizeof(char) * 1024), delimit[] = " \n", *token;
-	int countargt = 0;
-
-	memcpy(cbuffer, buffer, 1024);
-	token = strtok(cbuffer, delimit);
-	while (token != NULL)
-	{
-		token = strtok(NULL, delimit);
-		countargt++;
-	}
-	free(cbuffer);
-	return (countargt);
 }

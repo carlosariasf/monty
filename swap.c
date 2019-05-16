@@ -17,7 +17,24 @@ void swap_m(stack_t **stack, unsigned int line_number)
 	printf("L%d: can't pop an empty stack", line_number);
 	exit(EXIT_FAILURE);
 	}
-	current->next->prev = NULL;
-	*stack = current->next;
-	free(current);
+	else if (current->next->next == NULL)
+	{
+		current->prev = current->next;
+		current->next->prev = NULL;
+		current->next->next = current;
+		*stack = current->next;
+		current->next = NULL;
+		free(current);
+	}
+	else
+	{
+		current->next->next->prev = current->next->prev;
+		current->next->prev = NULL;
+		tmp = current->next->next;
+		current->next->next = *stack;
+		*stack = current;
+		current->next = tmp;
+		free(current);
+		free(tmp);
+	}
 }

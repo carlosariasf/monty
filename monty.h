@@ -45,5 +45,7 @@ void push_m(stack_t **stack, unsigned int line_number);
 void pall_m(stack_t **stack, unsigned int line_number);
 void pint_m(stack_t **stack, unsigned int line_number);
 void pop_m(stack_t **stack, unsigned int line_number);
+void add_m(stack_t **stack, unsigned int line_number);
+void nop_m(stack_t **stack, unsigned int line_number);
 void (*get_op_func(char *s))(stack_t **stack, unsigned int line_number);
 #endif
