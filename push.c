@@ -11,7 +11,8 @@ void push_m(stack_t **stack, unsigned int line_number)
 	stack_t *new;
 	stack_t *current;
     (void) line_number;
-	current = *stack;
+	
+    current = *stack;
 
 	new = malloc(sizeof(stack_t));
 	if (new == NULL)

@@ -19,10 +19,9 @@ instruction_t ops[] = {
 };
 int i = 0;
 
-printf("Entro\n");
-while (i < 2)
+while (i <= 2)
 {
-    if (strcmp((ops[i].opcode), s) == 0)
+    if (strcmp((ops[i]).opcode, s) == 0)
 	    return (ops[i].f);
     i++;
 }
