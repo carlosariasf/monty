@@ -10,6 +10,7 @@ instruction_t ops[] = {
 {"push", push_m},
 {"pall", pall_m},
 {"pint", pint_m},
+{"pop", pop_m},
 {NULL, NULL}
 };
 int i = 0;

@@ -45,9 +45,9 @@ int main(int ac, char **av)
  */
 void callfunc(FILE *fp, stack_t *head)
 {
-	char *bufferc, *token, *argumts[1024], delimit[] = " \n", num;
+	char *bufferc, *token, *argumts[1024], delimit[] = " \n";
 	size_t bufsize = 32;
-	int countargt = 1, i, j;
+	int countargt = 1;
 
 	bufferc = (char *)malloc(bufsize * sizeof(char));
 	while (getline(&bufferc, &bufsize, fp) != EOF)
@@ -63,21 +63,8 @@ void callfunc(FILE *fp, stack_t *head)
 			countargt++;
 		}
 		if (countargt > 0)
-        {
-            for (i = 0; i < strlen(argumts[1]); i++)
-                if (isdigit((argumts[1])[i]))
-                    j++;
-            if (i == j)
-			    value = atoi(argumts[1]);
-            else
-            {
-                free(bufferc);
-                printf("L%s: usage: push integer\n", countargt);
-                exit(EXIT_FAILURE);
-		    }
-        }
-            free(bufferc);
-        (*get_op_func(argumts[0]))(&head, countargt);
+			value = atoi(argumts[1]);
+		(*get_op_func(argumts[0]))(&head, countargt);
 	}
 	free(bufferc);
 }
