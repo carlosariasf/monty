@@ -45,7 +45,7 @@ size_t bufsize = 32;
 int countargt = 1;
 
 bufferc = (char *)malloc(bufsize * sizeof(char));
-if (getline(&bufferc, &bufsize, fp) != EOF)
+while (getline(&bufferc, &bufsize, fp) != EOF)
 		{
 			token = strtok(bufferc, delimit);
 			argumts[0] = token;
@@ -65,10 +65,7 @@ if (getline(&bufferc, &bufsize, fp) != EOF)
             }
 			(*get_op_func(argumts[0]))(&head, countargt);
 		}
-		else
-		{
-			free(bufferc);
-		}
+		free(bufferc);
 }
 
 int numlines(char *buffer)
