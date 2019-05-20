@@ -10,10 +10,9 @@ void pall_m(stack_t **stack, unsigned int line_number)
 	stack_t *current = *stack;
 	(void) line_number;
 
-	if ((*stack) == NULL)
+	if (current->next == NULL)
 	{
 		free(current);
-		free(stack);
 		exit(0);
 	}
 	while (current)
@@ -21,4 +20,5 @@ void pall_m(stack_t **stack, unsigned int line_number)
 		printf("%d\n", current->n);
 		current = current->next;
 	}
+	free(current);
 }

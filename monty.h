@@ -39,6 +39,7 @@ typedef struct instruction_s
 } instruction_t;
 
 int numlines(char *buffer);
+void ifnumber(char *argumts, char *bufferc, unsigned int line);
 void callfunc(FILE *fr, stack_t *head);
 void swap_m(stack_t **stack, unsigned int line_number);
 void push_m(stack_t **stack, unsigned int line_number);
