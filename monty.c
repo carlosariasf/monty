@@ -85,6 +85,12 @@ void callfunc(FILE *fp, stack_t *head)
 	}
 	free(head);
 }
+/**
+ * ifnumber - check numbers
+ * @argumts: arguments
+ * @bufferc: data buffer
+ * @line: numer line
+**/
 void ifnumber(char *argumts, char *bufferc, unsigned int line)
 {
 	unsigned int i = 0, j = 0;
