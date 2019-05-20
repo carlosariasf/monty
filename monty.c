@@ -64,14 +64,10 @@ void callfunc(FILE *fp, stack_t *head)
 			continue;
 		while (token != NULL)
 		{
-			argumts[countargt] = token;
-			token = strtok(NULL, delimit);
-			countargt++;
+			argumts[countargt] = token, token = strtok(NULL, delimit), countargt++;
 		}
 		if (countargt > 0)
-		{
 			ifnumber(argumts[1], bufferc, line);
-		}
 		else
 		{
 			fprintf(stderr, "USAGE: monty file\n");
@@ -81,8 +77,7 @@ void callfunc(FILE *fp, stack_t *head)
 		if (exec == NULL)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line, argumts[0]);
-			fclose(fp);
-			free(head);
+			fclose(fp), free(head);
 			exit(EXIT_FAILURE);
 		}
 		exec(&head, line);
@@ -92,6 +87,7 @@ void callfunc(FILE *fp, stack_t *head)
 void ifnumber(char *argumts, char *bufferc, unsigned int line)
 {
 	unsigned int i = 0, j = 0;
+
 	for (i = 0; i < strlen(argumts); i++)
 		if (argumts[i] > 47 && argumts[i] < 58)
 			j++;
@@ -104,6 +100,6 @@ void ifnumber(char *argumts, char *bufferc, unsigned int line)
 	{
 		free(bufferc);
 		fprintf(stderr, "L%d: usage: push integer\n", line);
-                exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 }
