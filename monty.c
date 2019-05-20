@@ -16,23 +16,28 @@ int main(int ac, char **av)
 
 	if (ac == 2)
 	{
-	fp = fopen(av[1], "r");
-	if (fp == NULL)
+		fp = fopen(av[1], "r");
+		if (fp == NULL)
 		{
-		token = strtok(av[1], delimit);
-		while (token != NULL)
-		{
-			argumts[countargt] = token;
-			token = strtok(NULL, delimit);
-			countargt++;
-		}
-		for (i = 0; argumts[i] != NULL; i++)
-		;
-		fprintf(stderr, "Error: Can't open file %s\n", argumts[i - 1]);
-		exit(EXIT_FAILURE);
+			token = strtok(av[1], delimit);
+			while (token != NULL)
+			{
+				argumts[countargt] = token;
+				token = strtok(NULL, delimit);
+				countargt++;
+			}
+			for (i = 0; argumts[i] != NULL; i++)
+				;
+			fprintf(stderr, "Error: Can't open file %s\n", argumts[i - 1]);
+			exit(EXIT_FAILURE);
 		}
 		callfunc(fp, head);
 		fclose(fp);
+	}
+	else
+	{
+		fprintf(stderr, "USAGE: monty file\n");
+		exit(EXIT_FAILURE);
 	}
 	return (0);
 }
@@ -56,7 +61,7 @@ void callfunc(FILE *fp, stack_t *head)
 		fprintf(stderr, "Error: malloc failed\n");
 		exit(EXIT_FAILURE);
 	}
-	while (getline(&bufferc, &bufsize, fp) != '\n')
+	while (getline(&bufferc, &bufsize, fp) >= 0)
 	{
 		line++;
 		token = strtok(bufferc, delimit);
@@ -66,13 +71,9 @@ void callfunc(FILE *fp, stack_t *head)
 		{
 			argumts[countargt] = token, token = strtok(NULL, delimit), countargt++;
 		}
-		if (countargt > 0)
+		if (countargt == 2)
 			ifnumber(argumts[1], bufferc, line);
-		else
-		{
-			fprintf(stderr, "USAGE: monty file\n");
-			exit(EXIT_FAILURE);
-		}
+		countargt = 0;
 		exec = get_op_func(argumts[0]);
 		if (exec == NULL)
 		{

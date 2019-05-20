@@ -9,16 +9,20 @@ void pall_m(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
 	(void) line_number;
-
-	if (current->next == NULL)
+	
+	if (!current)
 	{
 		free(current);
 		exit(0);
 	}
-	while (current)
+	else if (current != NULL)
 	{
+		while (current->next)
+		{
+			printf("%d\n", current->n);
+			current = current->next;
+		}
 		printf("%d\n", current->n);
-		current = current->next;
 	}
-	free(current);
+	return;
 }
