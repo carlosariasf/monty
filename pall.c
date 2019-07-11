@@ -10,12 +10,7 @@ void pall_m(stack_t **stack, unsigned int line_number)
 	stack_t *current = *stack;
 	(void) line_number;
 	
-	if (!current)
-	{
-		free(current);
-		exit(0);
-	}
-	else if (current != NULL)
+	if (current != NULL)
 	{
 		while (current->next)
 		{

@@ -50,7 +50,7 @@ int main(int ac, char **av)
  */
 void callfunc(FILE *fp, stack_t *head)
 {
-	char *bufferc, *token, *argumts[1024], delimit[] = " \n";
+	char *bufferc = NULL, *token = NULL, *argumts[1024], delimit[] = " \n";
 	size_t bufsize = 32;
 	unsigned int countargt = 0, line = 0;
 	void (*exec)(stack_t **stack, unsigned int line_number);
@@ -71,7 +71,7 @@ void callfunc(FILE *fp, stack_t *head)
 		{
 			argumts[countargt] = token, token = strtok(NULL, delimit), countargt++;
 		}
-		if (countargt == 2)
+		if (countargt >= 1 && strcmp(argumts[0], "pall") != 0)
 			ifnumber(argumts[1], bufferc, line);
 		countargt = 0;
 		exec = get_op_func(argumts[0]);
@@ -96,17 +96,16 @@ void ifnumber(char *argumts, char *bufferc, unsigned int line)
 	unsigned int i = 0, j = 0;
 
 	for (i = 0; i < strlen(argumts); i++)
-		if (argumts[i] > 47 && argumts[i] < 58)
+		if ((argumts[i] > 47 && argumts[i] < 58) || argumts[i] == 45)
 			j++;
 	if (i == j)
-	{
 		value = atoi(argumts);
-		j = 0;
-	}
-	else
+	if (i != j || *argumts == 0 || *argumts == ' ')
 	{
 		free(bufferc);
 		fprintf(stderr, "L%d: usage: push integer\n", line);
 		exit(EXIT_FAILURE);
 	}
+	*argumts = ' ';
+	j = 0;
 }
