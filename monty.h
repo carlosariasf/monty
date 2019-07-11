@@ -38,8 +38,10 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
+void freemalloc(stack_t **stack);
 int numlines(char *buffer);
-void ifnumber(char *argumts, char *bufferc, unsigned int line);
+void ifnumber(
+FILE *fp, stack_t **stack, char *argumts, char *bufferc, unsigned int line);
 void callfunc(FILE *fr, stack_t *head);
 void swap_m(stack_t **stack, unsigned int line_number);
 void push_m(stack_t **stack, unsigned int line_number);

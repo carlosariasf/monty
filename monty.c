@@ -72,7 +72,7 @@ void callfunc(FILE *fp, stack_t *head)
 			argumts[countargt] = token, token = strtok(NULL, delimit), countargt++;
 		}
 		if (countargt >= 1 && strcmp(argumts[0], "pall") != 0)
-			ifnumber(argumts[1], bufferc, line);
+			ifnumber(fp, &head, argumts[1], bufferc, line);
 		countargt = 0;
 		exec = get_op_func(argumts[0]);
 		if (exec == NULL)
@@ -83,15 +83,40 @@ void callfunc(FILE *fp, stack_t *head)
 		}
 		exec(&head, line);
 	}
-	free(head);
+	free(bufferc);
+	freemalloc(&head);
 }
 /**
+ * freemalloc - Free memory
+ * @stack: address of memory to clean
+**/
+void freemalloc(stack_t **stack)
+{
+	stack_t *tmp = NULL;
+
+	tmp = *stack;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+	}
+	while (tmp->prev)
+	{
+		tmp = tmp->prev;
+		free(tmp->next);
+	}
+	free(tmp);
+}
+
+/**
  * ifnumber - check numbers
+ * @fp: File pointer
+ * @stack: head pointer
  * @argumts: arguments
  * @bufferc: data buffer
  * @line: numer line
 **/
-void ifnumber(char *argumts, char *bufferc, unsigned int line)
+void ifnumber(
+FILE *fp, stack_t **stack, char *argumts, char *bufferc, unsigned int line)
 {
 	unsigned int i = 0, j = 0;
 
@@ -102,7 +127,9 @@ void ifnumber(char *argumts, char *bufferc, unsigned int line)
 		value = atoi(argumts);
 	if (i != j || *argumts == 0 || *argumts == ' ')
 	{
+		fclose(fp);
 		free(bufferc);
+		freemalloc(stack);
 		fprintf(stderr, "L%d: usage: push integer\n", line);
 		exit(EXIT_FAILURE);
 	}
