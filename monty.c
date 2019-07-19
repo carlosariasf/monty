@@ -71,7 +71,8 @@ void callfunc(FILE *fp, stack_t *head)
 		{
 			argumts[countargt] = token, token = strtok(NULL, delimit), countargt++;
 		}
-		if (countargt >= 1 && strcmp(argumts[0], "pall") != 0)
+		if (countargt >= 1 && strcmp(argumts[0], "pall") != 0
+				&& strcmp(argumts[0], "pint") != 0)
 			ifnumber(fp, &head, argumts[1], bufferc, line);
 		countargt = 0;
 		exec = get_op_func(argumts[0]);
@@ -80,6 +81,11 @@ void callfunc(FILE *fp, stack_t *head)
 			fprintf(stderr, "L%d: unknown instruction %s\n", line, argumts[0]);
 			fclose(fp), free(head);
 			exit(EXIT_FAILURE);
+		}
+		if (!head && strcmp(argumts[0], "pint") != 1)
+		{
+			fclose(fp);
+			free(bufferc);
 		}
 		exec(&head, line);
 	}
@@ -95,16 +101,19 @@ void freemalloc(stack_t **stack)
 	stack_t *tmp = NULL;
 
 	tmp = *stack;
-	while (tmp->next)
+	if (tmp)
 	{
-		tmp = tmp->next;
+		while (tmp->next)
+		{
+			tmp = tmp->next;
+		}
+		while (tmp->prev)
+		{
+			tmp = tmp->prev;
+			free(tmp->next);
+		}
+		free(tmp);
 	}
-	while (tmp->prev)
-	{
-		tmp = tmp->prev;
-		free(tmp->next);
-	}
-	free(tmp);
 }
 
 /**
