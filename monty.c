@@ -71,8 +71,7 @@ void callfunc(FILE *fp, stack_t *head)
 		{
 			argumts[countargt] = token, token = strtok(NULL, delimit), countargt++;
 		}
-		if (countargt >= 1 && strcmp(argumts[0], "pall") != 0
-				&& strcmp(argumts[0], "pint") != 0)
+		if (countargt >= 1 && strcmp(argumts[0], "push") == 0)
 			ifnumber(fp, &head, argumts[1], bufferc, line);
 		countargt = 0;
 		exec = get_op_func(argumts[0]);
@@ -82,13 +81,15 @@ void callfunc(FILE *fp, stack_t *head)
 			fclose(fp), free(head);
 			exit(EXIT_FAILURE);
 		}
-		if (!head && strcmp(argumts[0], "pint") != 1)
+		if (!head && strcmp(argumts[0], "pint") == 0)
 		{
+			printf("pint\n");
 			fclose(fp);
 			free(bufferc);
 		}
 		exec(&head, line);
 	}
+	printf("%s", argumts[0]);
 	free(bufferc);
 	freemalloc(&head);
 }
