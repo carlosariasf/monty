@@ -7,34 +7,31 @@
 **/
 void swap_m(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current = *stack;
-	stack_t *tmp = *stack;
+        stack_t *current = NULL;
+	stack_t *tmp = NULL;
+	int i = 0;
 
-	if (*stack == NULL)
+	
+	current = *stack;
+	while (current)
+		current = current->next, i++;
+	current = *stack;
+	if (i < 2)
 	{
-	free(current);
-	free(stack);
-	printf("L%d: can't pop an empty stack", line_number);
-	exit(EXIT_FAILURE);
+		freemalloc(stack);
+		fprintf(stderr, "L%d: can't swap, stack too short\n", line_number);
+		exit(EXIT_FAILURE);
 	}
-	else if (current->next->next == NULL)
+	if (i > 2)
 	{
-		current->prev = current->next;
-		current->next->prev = NULL;
-		current->next->next = current;
-		*stack = current->next;
-		current->next = NULL;
-		free(current);
-	}
-	else
-	{
-		current->next->next->prev = current->next->prev;
-		current->next->prev = NULL;
+		current->next->next->prev = current;
 		tmp = current->next->next;
-		current->next->next = *stack;
-		*stack = current;
-		current->next = tmp;
-		free(current);
-		free(tmp);
 	}
+        current->prev = current->next;
+        current->next->prev = NULL;
+	current->next->next = current;
+	if (i == 2)
+		*stack = current->next, current->next = NULL;
+	if (i > 2)
+		*stack = current->next, current->next = tmp;
 }

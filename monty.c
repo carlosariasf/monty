@@ -82,7 +82,8 @@ void callfunc(FILE *fp, stack_t *head)
 			exit(EXIT_FAILURE);
 		}
 		if ((!head && strcmp(argumts[0], "pint") == 0)
-		|| (!head && strcmp(argumts[0], "pop") == 0))
+		|| (!head && strcmp(argumts[0], "pop") == 0)
+		|| (!head && strcmp(argumts[0], "swap") == 0))
 			fclose(fp), free(bufferc);
 		exec(&head, line);
 	}
