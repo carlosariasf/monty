@@ -105,14 +105,17 @@ int check_cond(stack_t **stack, char type[])
 	|| (i < 2 && strcmp(type, "sub") == 0)
 	|| (i < 2 && strcmp(type, "div") == 0)
 	|| (i < 2 && strcmp(type, "mul") == 0)
-	|| (i < 2 && strcmp(type, "mod") == 0))
+	|| (i < 2 && strcmp(type, "mod") == 0)
+	|| (i < 1 && strcmp(type, "pchar") == 0))
 		return (1);
 	if (strcmp(type, "div") == 0
 	|| strcmp(type, "mod") == 0)
-	{
 		if (current->n == 0)
 			return (1);
-	}
+	if (strcmp(type, "pchar") == 0)
+                if (current->n < 32 && current->n > 126)
+                        return (1);
+
 	return (0);
 }
 /**
