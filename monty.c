@@ -102,9 +102,11 @@ int check_cond(stack_t **stack, char type[])
 	|| (i < 2 && strcmp(type, "add") == 0)
 	|| (i < 2 && strcmp(type, "sub") == 0)
 	|| (i < 2 && strcmp(type, "div") == 0)
-	|| (i < 2 && strcmp(type, "mul") == 0))
+	|| (i < 2 && strcmp(type, "mul") == 0)
+	|| (i < 2 && strcmp(type, "mod") == 0))
 		return (1);
-	if (strcmp(type, "div") == 0)
+	if (strcmp(type, "div") == 0
+	|| strcmp(type, "mod") == 0)
 	{
 		if (current->n == 0)
 			return (1);

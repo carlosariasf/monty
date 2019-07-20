@@ -17,6 +17,7 @@ instruction_t ops[] = {
 {"sub", sub_m},
 {"div", div_m},
 {"mul", mul_m},
+{"mod", mod_m},
 {NULL, NULL}
 };
 int i = 0;
