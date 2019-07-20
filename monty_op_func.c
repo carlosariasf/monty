@@ -14,6 +14,7 @@ instruction_t ops[] = {
 {"swap", swap_m},
 {"add", add_m},
 {"nop", nop_m},
+{"sub", sub_m},
 {NULL, NULL}
 };
 int i = 0;
