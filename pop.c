@@ -9,11 +9,10 @@ void pop_m(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
 
-	if (current == NULL)
+	if (!current)
 	{
-		free(current);
-		free(stack);
-		printf("L%d: can't pop an empty stack", line_number);
+		freemalloc(stack);
+		fprintf(stderr, "L%d: can't pop an empty stack\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	if (!current->prev && !current->next)
@@ -23,8 +22,8 @@ void pop_m(stack_t **stack, unsigned int line_number)
 	}
 	else
 	{
-	current->next->prev = NULL;
-	*stack = current->next;
-	free(current);
+		current->next->prev = NULL;
+		*stack = current->next;
+		free(current);
 	}
 }
