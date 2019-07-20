@@ -10,19 +10,15 @@ void pstr_m(stack_t **stack, unsigned int line_number)
 	stack_t *current = *stack;
 	(void) line_number;
 
-        if (!current)
-        {
-                printf("\n");
-        }
 	while (current)
 	{
 		if (current->n >= 32 && current->n <= 126)
 			printf("%c", current->n);
 		else
 		{
-			printf("\n");
 			break;
 		}
 		current = current->next;
 	}
+	printf("\n");
 }
