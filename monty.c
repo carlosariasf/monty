@@ -67,6 +67,8 @@ void callfunc(FILE *fp, stack_t *head)
 			continue;
 		while (token != NULL)
 			argumts[countargt] = token, token = strtok(NULL, delimit), countargt++;
+		if (*argumts[0] == 35)
+			strcpy(argumts[0], "#");
 		if (countargt >= 1 && strcmp(argumts[0], "push") == 0)
 			ifnumber(fp, &head, argumts[1], bufferc, line);
 		countargt = 0, exec = get_op_func(argumts[0]);
