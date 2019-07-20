@@ -17,7 +17,7 @@ void pchar_m(stack_t **stack, unsigned int line_number)
         }
 	if (current->n >= 32 && current->n <= 126)
 		printf("%c\n", current->n);
-	else if (current->n < 32 && current->n > 126)
+	if (current->n < 32 || current->n > 126)
 	{
 		freemalloc(stack);
  		fprintf(stderr, "L%d: can't pchar, value out of range\n", line_number);
