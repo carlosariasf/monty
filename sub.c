@@ -21,7 +21,7 @@ void sub_m(stack_t **stack, unsigned int line_number)
 	}
 	if (i >= 2)
 	{
-		current->next->n = current->n - current->next->n;
+		current->next->n = abs(current->n - current->next->n);
 		current->next->prev = NULL;
 		*stack = current->next;
 		free(current);
