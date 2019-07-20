@@ -83,13 +83,11 @@ void callfunc(FILE *fp, stack_t *head)
 		}
 		if (!head && strcmp(argumts[0], "pint") == 0)
 		{
-			printf("pint\n");
 			fclose(fp);
 			free(bufferc);
 		}
 		exec(&head, line);
 	}
-	printf("%s", argumts[0]);
 	free(bufferc);
 	freemalloc(&head);
 }
