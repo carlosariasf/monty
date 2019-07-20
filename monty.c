@@ -52,14 +52,14 @@ void callfunc(FILE *fp, stack_t *head)
 {
 	char *bufferc = NULL, *token = NULL, *argumts[1024], delimit[] = " \n";
 	size_t bufsize = 32;
-	unsigned int countargt = 0, line = 0;
+	unsigned int countargt = 0, line = 0, i = 0;
+	stack_t *current = NULL;
 	void (*exec)(stack_t **stack, unsigned int line_number);
 
 	bufferc = (char *)malloc(bufsize * sizeof(char));
 	if (!bufferc)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		fprintf(stderr, "Error: malloc failed\n"), exit(EXIT_FAILURE);
 	}
 	while (getline(&bufferc, &bufsize, fp) >= 0)
 	{
@@ -68,9 +68,7 @@ void callfunc(FILE *fp, stack_t *head)
 		if (!token)
 			continue;
 		while (token != NULL)
-		{
 			argumts[countargt] = token, token = strtok(NULL, delimit), countargt++;
-		}
 		if (countargt >= 1 && strcmp(argumts[0], "push") == 0)
 			ifnumber(fp, &head, argumts[1], bufferc, line);
 		countargt = 0;
@@ -78,12 +76,15 @@ void callfunc(FILE *fp, stack_t *head)
 		if (exec == NULL)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line, argumts[0]);
-			fclose(fp), free(head);
-			exit(EXIT_FAILURE);
+			fclose(fp), free(head), exit(EXIT_FAILURE);
 		}
+		current = head;
+		while (current)
+			current = current->next, i++;
 		if ((!head && strcmp(argumts[0], "pint") == 0)
 		|| (!head && strcmp(argumts[0], "pop") == 0)
-		|| (!head && strcmp(argumts[0], "swap") == 0))
+		|| (i < 2 && strcmp(argumts[0], "swap") == 0)
+		|| (i < 2 && strcmp(argumts[0], "add") == 0))
 			fclose(fp), free(bufferc);
 		exec(&head, line);
 	}

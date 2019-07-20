@@ -6,17 +6,24 @@
 **/
 void add_m(stack_t **stack, unsigned int line_number)
 {
-	stack_t *current = *stack;
+	stack_t *current = NULL;
+	int i = 0;
 
-	if (*stack == NULL)
+	current = *stack;
+	while (current)
+		current = current->next, i++;
+	current = *stack;
+	if (i < 2)
 	{
-		free(current);
-		free(stack);
-		printf("L%d: can't pop an empty stack", line_number);
+		freemalloc(stack);
+		fprintf(stderr, "L%d: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
-	current->next->n = current->n + current->next->n;
-	current->next->prev = NULL;
-	*stack = current->next;
-	free(current);
+	if (i >= 2)
+	{
+		current->next->n = current->n + current->next->n;
+		current->next->prev = NULL;
+		*stack = current->next;
+		free(current);
+	}
 }
