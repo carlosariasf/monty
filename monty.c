@@ -52,8 +52,7 @@ void callfunc(FILE *fp, stack_t *head)
 {
 	char *bufferc = NULL, *token = NULL, *argumts[1024], delimit[] = " \n";
 	size_t bufsize = 32;
-	unsigned int countargt = 0, line = 0, i = 0;
-	stack_t *current = NULL;
+	unsigned int countargt = 0, line = 0;
 	void (*exec)(stack_t **stack, unsigned int line_number);
 
 	bufferc = (char *)malloc(bufsize * sizeof(char));
@@ -63,34 +62,53 @@ void callfunc(FILE *fp, stack_t *head)
 	}
 	while (getline(&bufferc, &bufsize, fp) >= 0)
 	{
-		line++;
-		token = strtok(bufferc, delimit);
+		line++, token = strtok(bufferc, delimit);
 		if (!token)
 			continue;
 		while (token != NULL)
 			argumts[countargt] = token, token = strtok(NULL, delimit), countargt++;
 		if (countargt >= 1 && strcmp(argumts[0], "push") == 0)
 			ifnumber(fp, &head, argumts[1], bufferc, line);
-		countargt = 0;
-		exec = get_op_func(argumts[0]);
+		countargt = 0, exec = get_op_func(argumts[0]);
 		if (exec == NULL)
 		{
 			fprintf(stderr, "L%d: unknown instruction %s\n", line, argumts[0]);
 			fclose(fp), free(head), exit(EXIT_FAILURE);
 		}
-		current = head;
-		while (current)
-			current = current->next, i++;
-		if ((!head && strcmp(argumts[0], "pint") == 0)
-		|| (!head && strcmp(argumts[0], "pop") == 0)
-		|| (i < 2 && strcmp(argumts[0], "swap") == 0)
-		|| (i < 2 && strcmp(argumts[0], "add") == 0)
-		|| (i < 2 && strcmp(argumts[0], "sub") == 0))
+		if (check_cond(&head, argumts[0]) == 1)
 			fclose(fp), free(bufferc);
 		exec(&head, line);
 	}
-	free(bufferc);
-	freemalloc(&head);
+	free(bufferc), freemalloc(&head);
+}
+/**
+ * check_cond - Free memory
+ * @stack: address of memory to clean
+ * @type: string
+ * Return: 1 if complete the condition
+**/
+int check_cond(stack_t **stack, char type[])
+{
+	stack_t *current = NULL;
+	int i = 0;
+
+	current = *stack;
+	while (current)
+		current = current->next, i++;
+	current = *stack;
+	if ((i < 1 && strcmp(type, "pint") == 0)
+	|| (i < 1 && strcmp(type, "pop") == 0)
+	|| (i < 2 && strcmp(type, "swap") == 0)
+	|| (i < 2 && strcmp(type, "add") == 0)
+	|| (i < 2 && strcmp(type, "sub") == 0)
+	|| (i < 2 && strcmp(type, "div") == 0))
+		return (1);
+	if (strcmp(type, "div") == 0)
+	{
+		if (current->n == 0)
+			return (1);
+	}
+	return (0);
 }
 /**
  * freemalloc - Free memory

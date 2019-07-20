@@ -43,6 +43,7 @@ int numlines(char *buffer);
 void ifnumber(
 FILE *fp, stack_t **stack, char *argumts, char *bufferc, unsigned int line);
 void callfunc(FILE *fr, stack_t *head);
+int check_cond(stack_t **stack, char type[]);
 void swap_m(stack_t **stack, unsigned int line_number);
 void push_m(stack_t **stack, unsigned int line_number);
 void pall_m(stack_t **stack, unsigned int line_number);
@@ -51,5 +52,6 @@ void pop_m(stack_t **stack, unsigned int line_number);
 void add_m(stack_t **stack, unsigned int line_number);
 void nop_m(stack_t **stack, unsigned int line_number);
 void sub_m(stack_t **stack, unsigned int line_number);
+void div_m(stack_t **stack, unsigned int line_number);
 void (*get_op_func(char *s))(stack_t **stack, unsigned int line_number);
 #endif
