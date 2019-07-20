@@ -53,5 +53,6 @@ void add_m(stack_t **stack, unsigned int line_number);
 void nop_m(stack_t **stack, unsigned int line_number);
 void sub_m(stack_t **stack, unsigned int line_number);
 void div_m(stack_t **stack, unsigned int line_number);
+void mul_m(stack_t **stack, unsigned int line_number);
 void (*get_op_func(char *s))(stack_t **stack, unsigned int line_number);
 #endif
