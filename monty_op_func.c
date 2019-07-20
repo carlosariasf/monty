@@ -20,6 +20,7 @@ instruction_t ops[] = {
 {"mod", mod_m},
 {"#", nop_m},
 {"pchar", pchar_m},
+{"pstr", pstr_m},
 {NULL, NULL}
 };
 int i = 0;
