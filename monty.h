@@ -58,5 +58,6 @@ void mod_m(stack_t **stack, unsigned int line_number);
 void pchar_m(stack_t **stack, unsigned int line_number);
 void pstr_m(stack_t **stack, unsigned int line_number);
 void rotl_m(stack_t **stack, unsigned int line_number);
+void rotr_m(stack_t **stack, unsigned int line_number);
 void (*get_op_func(char *s))(stack_t **stack, unsigned int line_number);
 #endif
