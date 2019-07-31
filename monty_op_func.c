@@ -21,6 +21,7 @@ instruction_t ops[] = {
 {"#", nop_m},
 {"pchar", pchar_m},
 {"pstr", pstr_m},
+{"rotl", rotl_m},
 {NULL, NULL}
 };
 int i = 0;
