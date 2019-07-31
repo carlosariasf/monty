@@ -28,11 +28,9 @@ void rotr_m(stack_t **stack, unsigned int line_number)
 		}
 		if (i > 2)
 		{	
-			currentbot->prev->next = currenttop;
-			currenttop->next->prev = currentbot;
-			currentbot->next = currenttop->next;
-			currenttop->prev = currentbot->prev;
-			currenttop->next = NULL;
+			currentbot->prev->next = NULL;
+			currenttop->prev = currentbot;
+			currentbot->next = currenttop;
 			currentbot->prev = NULL;
 			*stack = currentbot;
 		}
